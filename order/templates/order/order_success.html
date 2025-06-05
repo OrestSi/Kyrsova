@@ -1,0 +1,11 @@
+<!-- order/order_success.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Order Success{% endblock %}
+
+{% block content %}
+<h2>Дякуємо за покупку!</h2>
+<p>Ваше замовлення успішно розміщено. Незабаром ви отримаєте підтвердження електронною поштою.</p>
+<a href="{% url 'dashboard' %}">Go to Dashboard</a>
+{% endblock %}

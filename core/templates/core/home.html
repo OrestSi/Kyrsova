@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="bg-white py-16 px-6 mb-8 mt-16">
+    <div class="container mx-auto flex flex-col md:flex-row items-center md:justify-between">
+        <div class="md:w-1/2 mb-6 md:mb-0">
+            <h1 class="text-3xl font-bold mb-4 pl-7">{{ page.title }}</h1>
+            <p class="text-lg mb-4 pl-7">{{ page.content }}</p>
+            <a href="{% url 'product:product_list' %}" class="inline-block ml-8 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700">
+                Придбай прямо зараз 
+            </a>
+        </div>
+        {% if page.background_image %}
+            <div class="md:w-1/2">
+                <img src="{{ page.background_image.url }}" alt="Background" class="w-auto h-96">
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<!------------Featured Products ----------------->
+<section class="py-16 px-6">
+    <h2 class="text-2xl font-semibold mb-4">Речі в наявності</h2>
+    <div class="featured-products grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        {% for product in featured_products %}
+            <div class="product bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="w-full h-48 object-cover mb-4">
+                <h3 class="text-lg font-semibold mb-2">{{ product.name }}</h3>
+                <p class="text-gray-600 mb-2">Price: ${{ product.price }}</p>
+                {% if product.discount_price %}
+                    <p class="text-red-500 mb-2">Discount Price: ${{ product.discount_price }}</p>
+                {% endif %}
+                
+                <!-- Spacer to push the buttons to the bottom -->
+                <div class="flex-grow"></div>
+
+                <!-- Buttons section -->
+                <div class="flex space-x-4 mt-4">
+                    <a href="{% url 'product:product_detail' id=product.id slug=product.slug %}" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                       Переглянути
+                    </a>
+                    <form method="post" action="{% url 'order:add_to_cart' product.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
+                            Додати
+                        </button>
+                    </form>
+                </div>
+            </div>
+        {% empty %}
+            <p>На даний момент не має в наявності</p>
+        {% endfor %}
+    </div>
+</section>
+
+
+<!------------ Customers Testimonial ----------------->
+<section class="py-16 px-6">
+    <h2 class="text-2xl font-semibold mt-8 mb-4">Що говорять наші користувачі</h2>
+    <div class="testimonial-cards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {% for testimonial in testimonials %}
+            <div class="testimonial-card bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                <p class="text-lg font-semibold mb-2">{{ user.first_name }}</p>
+                <p class="text-gray-600">{{ testimonial.content }}</p>
+            </div>
+        {% empty %}
+            <p>Немає відгуків.</p>
+        {% endfor %}
+    </div>
+</section>
+
+
+
+
+{% endblock %}

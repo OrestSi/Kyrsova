@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+    <div class="container mx-auto py-8 px-4">
+        <h1 class="text-4xl font-bold mb-6">{{ page.title }}</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+                <p class="text-gray-700 leading-relaxed mb-8">{{ page.content }}</p>
+            </div>
+            
+            {% if page.background_image %}
+            <div class="flex justify-center mb-8">
+                <img src="{{ page.background_image.url }}" alt="Background" class="rounded-lg shadow-lg object-cover max-w-full h-auto md:max-h-80">
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+            <div>
+                <h2 class="text-2xl font-semibold mb-4">Наша історія</h2>
+                <p class="text-gray-700 leading-relaxed">
+                    Ми заснували наш магазин з метою зробити унікальні вінтажні речі доступними для кожного, хто цінує стиль і історію. Наша подорож почалася зі створення колекції автентичних предметів, які не лише підкреслюють індивідуальність, а й відкривають двері до минулого. Кожен наш товар — це історія, яку ви можете зробити своєю.
+                </p>
+            </div>
+            <div>
+                <h2 class="text-2xl font-semibold mb-4">Наша команда</h2>
+                <p class="text-gray-700 leading-relaxed">
+                    Наша команда складається з пристрасних професіоналів, які мають великий досвід у сфері моди, дизайну та колекціонування. Ми працюємо над тим, щоб забезпечити вас найкращими продуктами та послугами, об’єднуючи стиль, якість та увагу до деталей.
+
+
+                </p>
+            </div>
+        </div>
+        
+        <div class="mt-8">
+            <h2 class="text-2xl font-semibold mb-4">Наші цінності</h2>
+            <ul class="list-disc list-inside text-gray-700">
+                <li>Задоволення клієнтів: Ми ставимо ваших потреб на перше місце у всьому, що робимо.</li>
+                <li>Якість: Ми прагнемо забезпечити найвищу якість у кожному продукті та послузі.</li>
+                <li>Прозорість: Ми ведемо наш бізнес чесно та відкрито.</li>
+                <li>Інновації: Ми постійно шукаємо способи покращити наш асортимент і сервіс.</li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
